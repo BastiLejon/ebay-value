@@ -9,7 +9,12 @@
 
 </head> 
 <body ng-controller="ebayController">
+
+<div class="container">
+
 <h1>eBay Search Results</h1>
+
+<div class="well well-sm">
 <input type="text" ng-change="submitebay()" ng-model="count">
 <input type="text" ng-change="" ng-model="keyword">
 <button ng-click="submitebay()">Click!</button>
@@ -35,14 +40,11 @@ Radio: <br>
   <input type="radio" name="pageNumber" ng-model="$parent.sold" ng-value="n" /> {{n}}
 </label>
 
-Enter a number:
-        <input type="number" ng-model="number" />
-        <button ng-click="doSquare()">X<sup>2</sup></button>
-        <button ng-click="doCube()">X<sup>3</sup></button>
-         
-        <div>Answer: {{answer}}</div>
+</div>
 
 <div id="results"></div>
+
+</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
 <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>

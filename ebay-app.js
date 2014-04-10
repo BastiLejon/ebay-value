@@ -5,7 +5,7 @@
 */
 var app = angular.module('ebayApp', ['ui.bootstrap']);
 
-app.controller('ebayController', function($scope, CalculatorService, EbayApi){
+app.controller('ebayController', function($scope, EbayApi){
   
   $scope.count = 3;
   $scope.keyword = "Garmin"
@@ -74,28 +74,6 @@ app.service('EbayApi', function(){
     document.body.appendChild(s);
   };
 });
-
-
-app.service('MathService', function() {
-    this.add = function(a, b) { return a + b };
-     
-    this.subtract = function(a, b) { return a - b };
-     
-    this.multiply = function(a, b) { return a * b };
-     
-    this.divide = function(a, b) { return a / b };
-});
- 
-app.service('CalculatorService', function(MathService){
-     
-    this.square = function(a) { return MathService.multiply(a,a); };
-    this.cube = function(a) { return MathService.multiply(a, MathService.multiply(a,a)); };
- 
-});
- 
-
-
-
 
 // Parse the response and build an HTML table to display search results
 function _cb_findItemsByKeywords(root) {
