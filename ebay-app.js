@@ -1,3 +1,11 @@
+  var html = [];
+  var tmp = [];
+  var itemData = [];
+  tmp.push({name: "A", city: "bb"});
+  tmp.push({name: "B", city: "dsf"});
+//alert(tmp[0].city);
+var tmp2 = "hallo";
+var foundItems = "";
 /**
 *  Module
 *
@@ -7,6 +15,8 @@ var app = angular.module('ebayApp', ['ui.bootstrap']);
 
 app.controller('ebayController', function($scope, EbayApi){
   
+  //$scope.searchParam.pageNr = "1";
+
   $scope.count = 3;
   $scope.keyword = "Garmin"
 
@@ -49,7 +59,11 @@ $scope.submitebay = function (){
 
     $scope.search = function() {
         //alert("fast");
-        EbayApi.searchCall($scope.searchParam);
+        //for (var i = 0; i = 3; i++) {
+          //$scope.searchParam.pageNr = i;
+          EbayApi.searchCall($scope.searchParam);
+        //}
+        
     }
 
 
@@ -59,21 +73,21 @@ app.service('EbayApi', function(){
   this.searchCall = function(searchParam) {
     s=document.createElement('script'); // create script element
     var url = "http://svcs.ebay.com/services/search/FindingService/v1?"
-    url += "OPERATION-NAME=findCompletedItems&";
-    url += "SERVICE-VERSION=1.7.0&";
-    url += "SECURITY-APPNAME=Sebastia-24a0-4fe3-b7e1-b5317da87162&";
-    url += "GLOBAL-ID=EBAY-DE&";
-    url += "RESPONSE-DATA-FORMAT=JSON&";
-    url += "REST-PAYLOAD&";
-    url += "keywords="+searchParam.keywords+"&";
-    //url += "itemFilter(0).name=SoldItemsOnly&";
-    //url += "itemFilter(0).value=true&";
-    //url += "itemFilter(1).name=sellingStatus.sellingState&";
-    //url += "itemFilter(1).value=EndedWithSales&";
-    url += "sortOrder=EndTimeSoonest&";
-    url += "paginationInput.entriesPerPage=100&";
-    url += "paginationInput.pageNumber=1";
-    url += "&callback=_cb_findItemsByKeywords";
+        url += "OPERATION-NAME=findCompletedItems&";
+        url += "SERVICE-VERSION=1.7.0&";
+        url += "SECURITY-APPNAME=Sebastia-24a0-4fe3-b7e1-b5317da87162&";
+        url += "GLOBAL-ID=EBAY-DE&";
+        url += "RESPONSE-DATA-FORMAT=JSON&";
+        url += "REST-PAYLOAD&";
+        url += "keywords="+searchParam.keywords+"&";
+        //url += "itemFilter(0).name=SoldItemsOnly&";
+        //url += "itemFilter(0).value=true&";
+        //url += "itemFilter(1).name=sellingStatus.sellingState&";
+        //url += "itemFilter(1).value=EndedWithSales&";
+        url += "sortOrder=EndTimeSoonest&";
+        url += "paginationInput.entriesPerPage=10&";
+        url += "paginationInput.pageNumber="+searchParam.pageNr+"&";
+        url += "callback=_cb_findItemsByKeywords";
     s.src= url;
     document.body.appendChild(s);
   };
@@ -82,8 +96,8 @@ app.service('EbayApi', function(){
 // Parse the response and build an HTML table to display search results
 function _cb_findItemsByKeywords(root) {
   var items = root.findCompletedItemsResponse[0].searchResult[0].item || [];
-  var html = [];
-  html.push('Anzahl: '+root.findCompletedItemsResponse[0].searchResult[0]["@count"]);
+  foundItems = root.findCompletedItemsResponse[0].searchResult[0]["@count"];
+  html.push('Anzahl: '+foundItems);
   html.push('<table width="100%" border="0" cellspacing="0" cellpadding="3"><tbody>');
   for (var i = 0; i < items.length; ++i) {
     var item     = items[i];
@@ -95,6 +109,9 @@ function _cb_findItemsByKeywords(root) {
     var freeshpg = item.shippingInfo[0].shippingType;
     var conditionid =  item.condition[0].conditionId;
     var condition = item.condition[0].conditionDisplayName;
+
+    itemData.push({item: title, price: price});
+
     if (null != title && null != viewitem) {
       html.push('<tr><td>' + '<img src="' + pic + '" border="0">' + '</td>' + 
       '<td><a href="' + viewitem + '" target="_blank">' + title + '</a></td><td>' + price + ' '+ currency + '</td><td>'+freeshpg+'</td><td>'+conditionid+' '+condition+'</td></tr>');
@@ -102,6 +119,8 @@ function _cb_findItemsByKeywords(root) {
   }
   html.push('</tbody></table>');
   document.getElementById("results").innerHTML = html.join("");
+
+  //alert(itemData[4].item+' '+itemData[4].price);
 };  // End _cb_findItemsByKeywords() function
 
 
