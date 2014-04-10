@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html ng-app="ebayApp" lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>eBay Search Results</title>
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+</head> 
+<body ng-controller="ebayController">
+<h1>eBay Search Results</h1>
+<input type="text" ng-change="submitebay()" ng-model="count">
+<input type="text" ng-change="" ng-model="keyword">
+<button ng-click="submitebay()">Click!</button>
+
+<pre>{{sold}} {{drop.value}}</pre>
+
+Select: <br>
+  <select ng-model="drop" ng-options="c.name for c in dropdown"></select><br>
+
+Button-group: <br>
+<div class="btn-group" >
+    <button type="button" ng-repeat="s in soldsel" class="btn btn-primary" ng-model="$parent.sold" btn-radio="s.value">{{s.name}}</button>
+</div>
+
+Checkbox: <br>
+<form name="myForm">
+  <input type="checkbox" ng-model="sold" ng-true-value="true" ng-false-value="false"> <br/>
+</form>
+
+Radio: <br>
+<label ng-repeat="n in ['true','false']">
+  <input type="radio" name="pageNumber" ng-model="$parent.sold" ng-value="n" /> {{n}}
+</label>
+
+<div id="results"></div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+<script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
+<!--script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script-->
+<script src="ebay-app.js"></script>
+</body>
+</html>
