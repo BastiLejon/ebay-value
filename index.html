@@ -14,10 +14,9 @@
 
 <h1>eBay Search Results</h1>
 
-<div class="well well-sm">
+<!--div class="well well-sm">
 <input type="text" ng-change="submitebay()" ng-model="count">
 <input type="text" ng-change="" ng-model="keyword">
-<button ng-click="submitebay()">Click!</button>
 <button ng-click="search()">Pop!</button>
 
 <pre>{{sold}} {{drop.value}}</pre>
@@ -40,6 +39,11 @@ Radio: <br>
   <input type="radio" name="pageNumber" ng-model="$parent.sold" ng-value="n" /> {{n}}
 </label>
 
+</div-->
+
+<div class="well well-sm">
+<input type="text" ng-change="" ng-model="searchParam.keywords">
+<button ng-click="search()">Search</button>
 </div>
 
 <div id="results"></div>

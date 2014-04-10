@@ -20,6 +20,9 @@ app.controller('ebayController', function($scope, EbayApi){
 
   $scope.soldsel = [{name:'Sold only', value: 'true'}, {name: "All", value: 'false'}];
 
+  //$scope.par = {};
+
+/*
 // Submit the request 
 $scope.submitebay = function (){
   s=document.createElement('script'); // create script element
@@ -42,17 +45,18 @@ $scope.submitebay = function (){
   s.src= url;
   document.body.appendChild(s);
 };
+*/
 
     $scope.search = function() {
         //alert("fast");
-        EbayApi.searchCall($scope.keyword);
+        EbayApi.searchCall($scope.searchParam);
     }
 
 
 });
 
 app.service('EbayApi', function(){
-  this.searchCall = function(lalala) {
+  this.searchCall = function(searchParam) {
     s=document.createElement('script'); // create script element
     var url = "http://svcs.ebay.com/services/search/FindingService/v1?"
     url += "OPERATION-NAME=findCompletedItems&";
@@ -61,11 +65,11 @@ app.service('EbayApi', function(){
     url += "GLOBAL-ID=EBAY-DE&";
     url += "RESPONSE-DATA-FORMAT=JSON&";
     url += "REST-PAYLOAD&";
-    url += "keywords="+lalala+"&";
-    url += "itemFilter(0).name=SoldItemsOnly&";
-    url += "itemFilter(0).value=true&";
-    url += "itemFilter(1).name=sellingStatus.sellingState&";
-    url += "itemFilter(1).value=EndedWithSales&";
+    url += "keywords="+searchParam.keywords+"&";
+    //url += "itemFilter(0).name=SoldItemsOnly&";
+    //url += "itemFilter(0).value=true&";
+    //url += "itemFilter(1).name=sellingStatus.sellingState&";
+    //url += "itemFilter(1).value=EndedWithSales&";
     url += "sortOrder=EndTimeSoonest&";
     url += "paginationInput.entriesPerPage=100&";
     url += "paginationInput.pageNumber=1";
