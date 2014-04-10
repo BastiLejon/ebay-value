@@ -13,6 +13,7 @@
 <input type="text" ng-change="submitebay()" ng-model="count">
 <input type="text" ng-change="" ng-model="keyword">
 <button ng-click="submitebay()">Click!</button>
+<button ng-click="search()">Pop!</button>
 
 <pre>{{sold}} {{drop.value}}</pre>
 
@@ -33,6 +34,13 @@ Radio: <br>
 <label ng-repeat="n in ['true','false']">
   <input type="radio" name="pageNumber" ng-model="$parent.sold" ng-value="n" /> {{n}}
 </label>
+
+Enter a number:
+        <input type="number" ng-model="number" />
+        <button ng-click="doSquare()">X<sup>2</sup></button>
+        <button ng-click="doCube()">X<sup>3</sup></button>
+         
+        <div>Answer: {{answer}}</div>
 
 <div id="results"></div>
 
